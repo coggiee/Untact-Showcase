@@ -1,0 +1,3 @@
+interface IType {
+  name: string
+}
