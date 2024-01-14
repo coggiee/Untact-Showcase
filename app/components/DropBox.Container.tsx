@@ -8,6 +8,7 @@ export default function DropBoxContainer() {
   const {
     isDragging,
     draggedFile: file,
+    imageURL,
     handleDragEnter,
     handleDragLeave,
     handleDragOver,
@@ -23,6 +24,7 @@ export default function DropBoxContainer() {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       isDragging={isDragging}
+      imageURL={imageURL}
     />
   )
 }
