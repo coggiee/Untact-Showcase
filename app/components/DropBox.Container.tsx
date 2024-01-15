@@ -13,7 +13,8 @@ export default function DropBoxContainer() {
     handleDragLeave,
     handleDragOver,
     handleDrop,
-    handleFileChange
+    handleFileChange,
+    handleRemoveFile
   } = useDragAndDrop()
 
   return (
@@ -22,6 +23,7 @@ export default function DropBoxContainer() {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
+      onRemove={handleRemoveFile}
       onDrop={handleDrop}
       isDragging={isDragging}
       imageURL={imageURL}

@@ -1,6 +1,7 @@
 'use client'
 
-import { Image } from '@nextui-org/react'
+import { Button, Image } from '@nextui-org/react'
+import RemoveIcon from '../icons/RemoveIcon'
 
 interface DropBoxProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -8,6 +9,7 @@ interface DropBoxProps {
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void
+  onRemove: () => void
   isDragging: boolean
   imageURL: string | null
 }
@@ -18,6 +20,7 @@ function DropBoxPresenter({
   onDragLeave,
   onDragOver,
   onDrop,
+  onRemove,
   isDragging,
   imageURL
 }: DropBoxProps) {
@@ -51,14 +54,24 @@ function DropBoxPresenter({
         </>
       )}
       {imageURL && (
-        <Image
-          width={500}
-          height={300}
-          isBlurred
-          radius="lg"
-          src={imageURL}
-          alt="preview"
-        />
+        <section className="flex flex-col items-center gap-5">
+          <Image
+            width={500}
+            height={300}
+            isBlurred
+            radius="lg"
+            src={imageURL}
+            alt="preview"
+          />
+          <Button
+            isIconOnly
+            variant="ghost"
+            radius="full"
+            aria-label="Delete photo"
+            onClick={onRemove}>
+            <RemoveIcon className="w-full h-full text-[#71717A]" />
+          </Button>
+        </section>
       )}
     </div>
   )

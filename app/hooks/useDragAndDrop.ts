@@ -15,6 +15,7 @@ const useDragAndDrop = () => {
 
   const handleRemoveFile = () => {
     setDraggedFile(null)
+    setImageURL(null)
   }
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
