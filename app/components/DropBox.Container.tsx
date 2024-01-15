@@ -1,8 +1,24 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import exifr from 'exifr'
+import { months } from '@/constants/dateItem'
 import useDragAndDrop from '../hooks/useDragAndDrop'
 import DropBoxPresenter from './DropBox.Presenter'
+import Selector from './Selector'
+import dayjs from 'dayjs'
+
+dayjs().locale('ko')
+
+interface Metadata {
+  Make: string
+  Model: string
+  DateTimeOriginal: string
+  ISO: string
+  LensModel: string
+  latitude: number
+  longitude: number
+}
 
 export default function DropBoxContainer() {
   const {
@@ -17,16 +33,69 @@ export default function DropBoxContainer() {
     handleRemoveFile
   } = useDragAndDrop()
 
+  const [year, setYear] = useState<string>(dayjs().year().toString())
+  const [month, setMonth] = useState<string>(months[dayjs().month()].value)
+  const [day, setDay] = useState<string>(dayjs().date().toString())
+  const [metadata, setMetadata] = useState<Partial<Metadata>>({})
+
+  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target
+    if (name === 'year') setYear(value)
+    if (name === 'month') setMonth(value)
+    if (name === 'day') setDay(value)
+  }
+
+  useEffect(() => {
+    const extractMetadata = async () => {
+      await exifr.parse(file!).then((output) => {
+        const {
+          Make,
+          Model,
+          DateTimeOriginal,
+          ISO,
+          LensModel,
+          latitude,
+          longitude
+        } = output
+
+        setMetadata({
+          Make,
+          Model,
+          DateTimeOriginal,
+          ISO,
+          LensModel,
+          latitude,
+          longitude
+        })
+      })
+    }
+
+    extractMetadata()
+  }, [file])
+
+  useEffect(() => {
+    const date = dayjs(metadata.DateTimeOriginal).format('YYYY-MM-DD')
+    setYear(date.split('-')[0])
+    setMonth(months[Number(date.split('-')[1])].value)
+    setDay(date.split('-')[2])
+  }, [metadata])
+
   return (
-    <DropBoxPresenter
-      onChange={handleFileChange}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onRemove={handleRemoveFile}
-      onDrop={handleDrop}
-      isDragging={isDragging}
-      imageURL={imageURL}
-    />
+    <div className="mt-10 flex flex-col gap-5">
+      <DropBoxPresenter
+        onChange={handleFileChange}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onRemove={handleRemoveFile}
+        onDrop={handleDrop}
+        isDragging={isDragging}
+        imageURL={imageURL}
+      />
+      <Selector
+        selectedItem={{ year, month, day }}
+        onChange={handleSelectionChange}
+      />
+    </div>
   )
 }
