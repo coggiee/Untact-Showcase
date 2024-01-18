@@ -32,7 +32,7 @@ function DropBoxPresenter({
             type="file"
             id="myImage"
             name="myImage"
-            accept="image/png, image/gif, image/jpeg, image/jpg"
+            accept="image/png, image/gif, image/jpeg, image/jpg, image/HEIC, image/heic"
             className="hidden"
             onChange={onChange}
           />

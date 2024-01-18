@@ -1,3 +1,4 @@
+import handleConvertHEIC from '@/utils/convertHEIC'
 import { useState } from 'react'
 
 const useDragAndDrop = () => {
@@ -38,19 +39,26 @@ const useDragAndDrop = () => {
     }
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    const file = e.dataTransfer.files[0]
     e.preventDefault()
     e.stopPropagation()
-    setDraggedFile(e.dataTransfer.files[0])
-    handleReadImage(e.dataTransfer.files[0])
+
+    const handledFile = (await handleConvertHEIC(file)) ?? file
+
+    setDraggedFile(handledFile)
+    handleReadImage(handledFile)
     setIsDragging(false)
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setDraggedFile(e.target.files[0])
-      handleReadImage(e.target.files[0])
-    }
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0]
+
+    const handledFile = (await handleConvertHEIC(file)) ?? file
+
+    setDraggedFile(handledFile)
+    handleReadImage(handledFile)
+    setIsDragging(false)
   }
 
   return {
