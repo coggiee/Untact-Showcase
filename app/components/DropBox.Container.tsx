@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react'
 import exifr from 'exifr'
-import { months } from '@/constants/dateItem'
+import { days, months } from '@/constants/dateItem'
+import dayjs from 'dayjs'
 import useDragAndDrop from '../hooks/useDragAndDrop'
 import DropBoxPresenter from './DropBox.Presenter'
 import Selector from './Selector'
-import dayjs from 'dayjs'
 
 dayjs().locale('ko')
 
@@ -75,9 +75,11 @@ export default function DropBoxContainer() {
 
   useEffect(() => {
     const date = dayjs(metadata.DateTimeOriginal).format('YYYY-MM-DD')
-    setYear(date.split('-')[0])
-    setMonth(months[Number(date.split('-')[1])].value)
-    setDay(date.split('-')[2])
+    const [Fyear, Fmonth, Fday] = date.split('-')
+    
+    setYear(Fyear)
+    setMonth(months[Number(Fmonth)].value)
+    setDay(days[Number(Fday)].value)
   }, [metadata])
 
   return (
