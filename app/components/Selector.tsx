@@ -13,7 +13,7 @@ interface SelectorProps {
 
 export default function Selector({ selectedItem, onChange }: SelectorProps) {
   return (
-    <div className="flex justify-center items-center gap-3">
+    <div className="w-full flex justify-center items-center gap-3">
       <Select
         isRequired
         items={years}
