@@ -10,6 +10,7 @@ import DropBoxPresenter from './DropBox.Presenter'
 import Selector from './Selector'
 import RemoveIcon from '../icons/RemoveIcon'
 import MetadataContainer from './Metadata.Container'
+import LocationContainer from './Location.Container'
 
 dayjs().locale('ko')
 
@@ -109,7 +110,13 @@ export default function DropBoxContainer() {
             selectedItem={{ year, month, day }}
             onChange={handleSelectionChange}
           />
-          <MetadataContainer metadata={metadata} />
+          <div className="w-full flex flex-col gap-3 md:flex-row container max-w-xl">
+            <MetadataContainer metadata={metadata} />
+            <LocationContainer
+              latitude={metadata.latitude!}
+              longitude={metadata.longitude!}
+            />
+          </div>
         </section>
       )}
     </div>
