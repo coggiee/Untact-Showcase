@@ -77,18 +77,20 @@ export default function DropBoxContainer() {
   }, [metadata])
 
   return (
-    <div className="mt-10 flex flex-col gap-5">
-      <DropBoxPresenter
-        onChange={handleFileChange}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        isDragging={isDragging}
-        imageURL={imageURL}
-      />
+    <div className="w-full h-full flex flex-col gap-5 py-5">
+      {!imageURL && (
+        <DropBoxPresenter
+          onChange={handleFileChange}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          isDragging={isDragging}
+          imageURL={imageURL}
+        />
+      )}
       {imageURL && (
-        <section className="flex flex-col items-center gap-5 mb-10">
+        <section className="flex flex-col items-center gap-5">
           <Image
             width={500}
             height={300}
@@ -117,6 +119,12 @@ export default function DropBoxContainer() {
               longitude={metadata.longitude!}
             />
           </div>
+          <Button
+            color="primary"
+            className="w-full max-w-xl mb-3"
+            disabled={!file}>
+            Save
+          </Button>
         </section>
       )}
     </div>
