@@ -11,3 +11,8 @@ interface MetadataField {
 interface Metadata {
   metadata: Partial<MetadataField>
 }
+
+interface LocationField {
+  latitude: number
+  longitude: number
+}
