@@ -8,7 +8,7 @@ function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider
       navigate={router.push}
-      className="w-full h-screen container mx-auto px-5">
+      className="w-full h-screen container mx-auto">
       {children}
     </NextUIProvider>
   )
