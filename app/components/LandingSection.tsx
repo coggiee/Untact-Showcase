@@ -5,7 +5,7 @@ import { Button, Spacer } from '@nextui-org/react'
 import Section from './Section'
 import SectionTitle from './SectionTitle'
 import SectionSubTitle from './SectionSubTitle'
-import ScrollDownIcon from '../icons/ScrollDown'
+import ScrollDownIcon from '../icons/ScrollDownIcon'
 
 function LandingSection() {
   return (
