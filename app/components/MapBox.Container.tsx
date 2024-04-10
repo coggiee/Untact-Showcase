@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import { Marker } from 'react-map-gl'
 import CITIES from '@/data/cities.json'
+import { Skeleton, Button } from '@nextui-org/react'
 import MapBoxPresenter from './MapBox.Presenter'
 import Pin from './Pin'
 
@@ -14,7 +15,7 @@ function MapBoxContainer() {
     bearing: 0,
     pitch: 0
   })
-
+  const [isLoaded, setIsLoaded] = useState(false)
   const [popupInfo, setPopupInfo] = useState<{
     longitude: number
     latitude: number
@@ -49,14 +50,21 @@ function MapBoxContainer() {
 
   return (
     <section className="w-full h-3/5">
-      <MapBoxPresenter
-        viewState={viewState}
-        onClickMap={handleClickMap}
-        onMoveMap={handleMoveMap}
-        pins={pins}
-        popupInfo={popupInfo}
-        onClickPopup={() => setPopupInfo(null)}
-      />
+      <Button onClick={() => setIsLoaded((prev) => !prev)}>Toggle</Button>
+      <Skeleton
+        isLoaded={isLoaded}
+        className="w-full h-[500px] md:h-[700px] mt-5 rounded-[10px]">
+        <div className="w-full h-[500px] md:h-[700px]">
+          <MapBoxPresenter
+            viewState={viewState}
+            onClickMap={handleClickMap}
+            onMoveMap={handleMoveMap}
+            pins={pins}
+            popupInfo={popupInfo}
+            onClickPopup={() => setPopupInfo(null)}
+          />
+        </div>
+      </Skeleton>
     </section>
   )
 }
