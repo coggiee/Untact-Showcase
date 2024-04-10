@@ -70,7 +70,7 @@ export default function DropBoxContainer() {
   useEffect(() => {
     const date = dayjs(metadata.DateTimeOriginal).format('YYYY-MM-DD')
     const [Fyear, Fmonth, Fday] = date.split('-')
-
+    
     setYear(Fyear)
     setMonth(months[Number(Fmonth) - 1].value)
     setDay(days[Number(Fday) - 1].value)
