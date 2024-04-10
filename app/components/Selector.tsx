@@ -13,13 +13,13 @@ interface SelectorProps {
 
 export default function Selector({ selectedItem, onChange }: SelectorProps) {
   return (
-    <div className="flex justify-center items-center gap-3">
+    <div className="w-full flex justify-center items-center gap-3 max-w-xl">
       <Select
         isRequired
         items={years}
         label="Year"
         placeholder="year"
-        className="max-w-xs"
+        className="max-w-sm"
         name="year"
         selectedKeys={[selectedItem.year]}
         onChange={onChange}>
@@ -36,7 +36,7 @@ export default function Selector({ selectedItem, onChange }: SelectorProps) {
         items={months}
         label="Month"
         placeholder="month"
-        className="max-w-xs"
+        className="max-w-sm"
         name="month"
         selectedKeys={[selectedItem.month]}
         onChange={onChange}>
@@ -53,7 +53,7 @@ export default function Selector({ selectedItem, onChange }: SelectorProps) {
         items={days}
         label="Day"
         placeholder="day"
-        className="max-w-xs"
+        className="max-w-sm"
         name="day"
         selectedKeys={[selectedItem.day]}
         onChange={onChange}>

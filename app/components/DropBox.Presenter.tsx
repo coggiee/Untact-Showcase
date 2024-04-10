@@ -1,15 +1,11 @@
 'use client'
 
-import { Button, Image } from '@nextui-org/react'
-import RemoveIcon from '../icons/RemoveIcon'
-
 interface DropBoxProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void
-  onRemove: () => void
   isDragging: boolean
   imageURL: string | null
 }
@@ -20,12 +16,11 @@ function DropBoxPresenter({
   onDragLeave,
   onDragOver,
   onDrop,
-  onRemove,
   isDragging,
   imageURL
 }: DropBoxProps) {
   return (
-    <div>
+    <div className="w-full h-full flex justify-center items-center">
       {!imageURL && (
         <>
           <input
@@ -41,37 +36,17 @@ function DropBoxPresenter({
             onDragLeave={onDragLeave}
             onDragOver={onDragOver}
             onDrop={onDrop}
-            className={`border-3 border-dashed rounded-2xl p-5 flex flex-col items-center gap-5 ${
+            className={`w-full h-72 max-w-lg border-3 border-dashed rounded-2xl p-5 flex flex-col justify-center items-center gap-5 ${
               isDragging ? 'border-[#fff]' : 'border-[#626262]'
             }`}>
-            <span>Drag and Drop your file on here.</span>
+            <span className="font-bold text-lg text-[#c4c4c4]">Drag and Drop your file on here.</span>
             <label
               htmlFor="myImage"
-              className="font-bold text-[#808080]">
+              className="text-[#808080]">
               Get your Image
             </label>
           </div>
         </>
-      )}
-      {imageURL && (
-        <section className="flex flex-col items-center gap-5">
-          <Image
-            width={500}
-            height={300}
-            isBlurred
-            radius="lg"
-            src={imageURL}
-            alt="preview"
-          />
-          <Button
-            isIconOnly
-            variant="ghost"
-            radius="full"
-            aria-label="Delete photo"
-            onClick={onRemove}>
-            <RemoveIcon className="w-full h-full text-[#71717A]" />
-          </Button>
-        </section>
       )}
     </div>
   )
